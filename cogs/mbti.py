@@ -36,7 +36,6 @@ class mbtiCog(commands.Cog):
 
                 answerlist = self.answerdict[(reaction.message.id,user.id)]
 
-
                 def embedmaker(n):
                     embed = discord.Embed(title="MBTI Test", description=self.questions[n] + '    (' + str(n+1) + '/32)',  color=0xf6d0d0)
                     embed.set_author(name="Personality Test", icon_url="https://i.pinimg.com/originals/d8/a4/4f/d8a44fba200d17685c8520faf223e36a.gif")
@@ -58,38 +57,33 @@ class mbtiCog(commands.Cog):
                     tfscore = 0
                     jpscore = 0
                     
-                    def score(emoji):
-                        if emoji == '1️⃣': return 5
-                        elif emoji == '2️⃣': return 2
-                        elif emoji == '3️⃣': return 0
-                        elif emoji == '4️⃣': return -2
-                        elif emoji == '5️⃣': return -5
+                    scores = {'1️⃣':5 , '2️⃣':2, '3️⃣':0, '4️⃣':-2, '5️⃣':-5 }
 
                     for i in range(0,len(answerlist)):
                         if (i <= 7):
                             #EXTROVERSION VS INTROVERSION every second on is an introversion q
                             if (i%2 == 0):
-                                eiscore += score(answerlist[i])
+                                eiscore += scores[answerlist[i]]
                             else:
-                                eiscore -= score(answerlist[i])
+                                eiscore -= scores[answerlist[i]]
                         elif (8 <= i <= 15):
                             #SENSING VS INTUITION every second on is an intuition q
                             if (i%2 == 0):
-                                snscore += score(answerlist[i])
+                                snscore += scores[answerlist[i]]
                             else:
-                                snscore -= score(answerlist[i])
+                                snscore -= scores[answerlist[i]]
                         elif (16 <= i <= 23):
                             #THINKING VS FEELING every second on is an feeling q
                             if (i%2 == 0):
-                                tfscore += score(answerlist[i])
+                                tfscore += scores[answerlist[i]]
                             else:
-                                tfscore -= score(answerlist[i])
+                                tfscore -= scores[answerlist[i]]
                         else:
                             #JUDGJING VS PERCEIVING every second one is a perceiving q
                             if (i%2 == 0):
-                                jpscore += score(answerlist[i])
+                                jpscore += scores[answerlist[i]]
                             else:
-                                jpscore -= score(answerlist[i])
+                                jpscore -= scores[answerlist[i]]
 
                     if (eiscore > 0): ptype += "E"
                     elif (eiscore < 0): ptype += "I"
